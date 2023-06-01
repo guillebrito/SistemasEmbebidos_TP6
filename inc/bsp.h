@@ -55,17 +55,14 @@ extern "C"
      */
     typedef struct board_s
     {
-        digital_input_t tec_1; //!< Puntero al descriptor de la entrada tec_1.
-        digital_input_t tec_2; //!< Puntero al descriptor de la entrada tec_2.
-        digital_input_t tec_3; //!< Puntero al descriptor de la entrada tec_3.
-        digital_input_t tec_4; //!< Puntero al descriptor de la entrada tec_4.
+        digital_input_t tec_f1;     //!< Puntero al descriptor de la entrada tec_f1.
+        digital_input_t tec_f2;     //!< Puntero al descriptor de la entrada tec_f2.
+        digital_input_t tec_f3;     //!< Puntero al descriptor de la entrada tec_f3.
+        digital_input_t tec_f4;     //!< Puntero al descriptor de la entrada tec_f4.
+        digital_input_t tec_acep;   //!< Puntero al descriptor de la entrada tec_acep.
+        digital_input_t tec_cancel; //!< Puntero al descriptor de la entrada tec_cancel.
 
-        digital_output_t led_r; //!< Puntero al descriptor de la salida led_r.
-        digital_output_t led_g; //!< Puntero al descriptor de la salida led_g.
-        digital_output_t led_b; //!< Puntero al descriptor de la salida led_b.
-        digital_output_t led_1; //!< Puntero al descriptor de la salida led_1.
-        digital_output_t led_2; //!< Puntero al descriptor de la salida led_2.
-        digital_output_t led_3; //!< Puntero al descriptor de la salida led_3.
+        digital_output_t buzz; //!< Puntero al descriptor de la salida led_r.
     } const * const board_t;
 
     /* === Public variable declarations ============================================================ */

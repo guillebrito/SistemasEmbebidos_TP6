@@ -21,8 +21,7 @@ SPDX-License-Identifier: MIT
 
 /** \brief Board harware support
  *
- ** Este módulo brinda las configuraciones de entradas y salidas de la placa EDU-CIAA_NXP para el
- *práctico número 4
+ ** Este módulo brinda las configuraciones de entradas y salidas de la placa EDU-CIAA_NXP para el práctico número 4
  **
  ** \addtogroup hal HAL
  ** \brief Hardware abstraction layer
@@ -32,68 +31,9 @@ SPDX-License-Identifier: MIT
 
 #include "bsp.h"
 #include "chip.h"
+#include "poncho.h"
 
 /* === Macros definitions ====================================================================== */
-
-#define LED_R_PORT 2
-#define LED_R_PIN  0
-#define LED_R_FUNC SCU_MODE_FUNC4
-#define LED_R_GPIO 5
-#define LED_R_BIT  0
-
-#define LED_G_PORT 2
-#define LED_G_PIN  1
-#define LED_G_FUNC SCU_MODE_FUNC4
-#define LED_G_GPIO 5
-#define LED_G_BIT  1
-
-#define LED_B_PORT 2
-#define LED_B_PIN  2
-#define LED_B_FUNC SCU_MODE_FUNC4
-#define LED_B_GPIO 5
-#define LED_B_BIT  2
-
-#define LED_1_PORT 2
-#define LED_1_PIN  10
-#define LED_1_FUNC SCU_MODE_FUNC0
-#define LED_1_GPIO 0
-#define LED_1_BIT  14
-
-#define LED_2_PORT 2
-#define LED_2_PIN  11
-#define LED_2_FUNC SCU_MODE_FUNC0
-#define LED_2_GPIO 1
-#define LED_2_BIT  11
-
-#define LED_3_PORT 2
-#define LED_3_PIN  12
-#define LED_3_FUNC SCU_MODE_FUNC0
-#define LED_3_GPIO 1
-#define LED_3_BIT  12
-
-#define TEC_1_PORT 1
-#define TEC_1_PIN  0
-#define TEC_1_FUNC SCU_MODE_FUNC0
-#define TEC_1_GPIO 0
-#define TEC_1_BIT  4
-
-#define TEC_2_PORT 1
-#define TEC_2_PIN  1
-#define TEC_2_FUNC SCU_MODE_FUNC0
-#define TEC_2_GPIO 0
-#define TEC_2_BIT  8
-
-#define TEC_3_PORT 1
-#define TEC_3_PIN  2
-#define TEC_3_FUNC SCU_MODE_FUNC0
-#define TEC_3_GPIO 0
-#define TEC_3_BIT  9
-
-#define TEC_4_PORT 1
-#define TEC_4_PIN  6
-#define TEC_4_FUNC SCU_MODE_FUNC0
-#define TEC_4_GPIO 1
-#define TEC_4_BIT  9
 
 /* === Private data type declarations ========================================================== */
 
@@ -113,41 +53,28 @@ static struct board_s board = {0};
 
 board_t BoardCreate(void)
 {
-    Chip_SCU_PinMuxSet(LED_R_PORT, LED_R_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_R_FUNC);
-    board.led_r = DigitalOutputCreate(LED_R_GPIO, LED_R_BIT, false);
-    DigitalOutputDeactivate(board.led_r);
-
-    Chip_SCU_PinMuxSet(LED_G_PORT, LED_G_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_G_FUNC);
-    board.led_g = DigitalOutputCreate(LED_G_GPIO, LED_G_BIT, false);
-    DigitalOutputDeactivate(board.led_g);
-
-    Chip_SCU_PinMuxSet(LED_B_PORT, LED_B_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_B_FUNC);
-    board.led_b = DigitalOutputCreate(LED_B_GPIO, LED_B_BIT, false);
+    Chip_SCU_PinMuxSet(BUZZER_PORT, BUZZER_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | BUZZER_FUNC);
+    board.buzz = DigitalOutputCreate(BUZZER_GPIO, BUZZER_BIT, false);
 
     /******************/
 
-    Chip_SCU_PinMuxSet(LED_1_PORT, LED_1_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_1_FUNC);
-    board.led_1 = DigitalOutputCreate(LED_1_GPIO, LED_1_BIT, false);
+    Chip_SCU_PinMuxSet(KEY_F1_PORT, KEY_F1_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F1_FUNC);
+    board.tec_f1 = DigitalInputCreate(KEY_F1_GPIO, KEY_F1_BIT, true);
 
-    Chip_SCU_PinMuxSet(LED_2_PORT, LED_2_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_2_FUNC);
-    board.led_2 = DigitalOutputCreate(LED_2_GPIO, LED_2_BIT, false);
+    Chip_SCU_PinMuxSet(KEY_F2_PORT, KEY_F2_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F2_FUNC);
+    board.tec_f2 = DigitalInputCreate(KEY_F2_GPIO, KEY_F2_BIT, true);
 
-    Chip_SCU_PinMuxSet(LED_3_PORT, LED_3_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_INACT | LED_3_FUNC);
-    board.led_3 = DigitalOutputCreate(LED_3_GPIO, LED_3_BIT, false);
+    Chip_SCU_PinMuxSet(KEY_F3_PORT, KEY_F3_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F3_FUNC);
+    board.tec_f3 = DigitalInputCreate(KEY_F3_GPIO, KEY_F3_BIT, true);
 
-    /******************/
+    Chip_SCU_PinMuxSet(KEY_F4_PORT, KEY_F4_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F4_FUNC);
+    board.tec_f4 = DigitalInputCreate(KEY_F4_GPIO, KEY_F4_BIT, true);
 
-    Chip_SCU_PinMuxSet(TEC_1_PORT, TEC_1_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | TEC_1_FUNC);
-    board.tec_1 = DigitalInputCreate(TEC_1_GPIO, TEC_1_BIT, true);
+    Chip_SCU_PinMuxSet(KEY_ACCEPT_PORT, KEY_ACCEPT_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_ACCEPT_FUNC);
+    board.tec_acep = DigitalInputCreate(KEY_ACCEPT_GPIO, KEY_ACCEPT_BIT, true);
 
-    Chip_SCU_PinMuxSet(TEC_2_PORT, TEC_2_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | TEC_2_FUNC);
-    board.tec_2 = DigitalInputCreate(TEC_2_GPIO, TEC_2_BIT, true);
-
-    Chip_SCU_PinMuxSet(TEC_3_PORT, TEC_3_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | TEC_3_FUNC);
-    board.tec_3 = DigitalInputCreate(TEC_3_GPIO, TEC_3_BIT, true);
-
-    Chip_SCU_PinMuxSet(TEC_4_PORT, TEC_4_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | TEC_4_FUNC);
-    board.tec_4 = DigitalInputCreate(TEC_4_GPIO, TEC_4_BIT, true);
+    Chip_SCU_PinMuxSet(KEY_CANCEL_PORT, KEY_CANCEL_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_CANCEL_FUNC);
+    board.tec_cancel = DigitalInputCreate(KEY_CANCEL_GPIO, KEY_CANCEL_BIT, true);
 
     return &board;
 }
