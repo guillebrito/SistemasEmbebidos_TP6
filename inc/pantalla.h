@@ -70,7 +70,7 @@ extern "C"
     {
         display_screen_off_t ScreenTurnOff;   //!< Función para apagar los segmentos y los digitos.
         display_segments_on_t SegmentsTurnOn; //!< Función para prender determinados segmentos.
-        display_digit_on_t DigitTurnOn;       //! Función para prender un dígito.
+        display_digit_on_t DigitTurnOn;       //!< Función para prender un dígito.
     } const * const display_driver_t;         //!< Puntero al controlador de la pantalla.
 
     /* === Public variable declarations ============================================================ */

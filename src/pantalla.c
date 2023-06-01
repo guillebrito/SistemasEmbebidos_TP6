@@ -28,14 +28,45 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions =============================================================== */
 
 #include "pantalla.h"
+#include <string.h>
 
 /* === Macros definitions ====================================================================== */
+
+#define BorrarMemoria() memset(display->memory, 0, sizeof(display->memory))
+#define CopiarDrivers() memcpy(display->driver, driver, sizeof(display->driver))
+
+#ifndef DISPLAY_MAX_DIGITS
+#define DISPLAY_MAX_DIGITS 8
+#endif
 
 /* === Private data type declarations ========================================================== */
 
 /* === Private variable declarations =========================================================== */
 
+struct display_s
+{
+    uint8_t digits;
+    uint8_t active_digit;
+    uint8_t memory[DISPLAY_MAX_DIGITS];
+    struct display_driver_s driver[1];
+};
+
+static const uint8_t IMAGES[] = {
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_C | SEGMENTO_D | SEGMENTO_E | SEGMENTO_F,              //!< 0
+    SEGMENTO_B | SEGMENTO_C,                                                                  //!< 1
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_D | SEGMENTO_E | SEGMENTO_G,                           //!< 2
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_C | SEGMENTO_D | SEGMENTO_G,                           //!< 3
+    SEGMENTO_B | SEGMENTO_C | SEGMENTO_F | SEGMENTO_G,                                        //!< 4
+    SEGMENTO_A | SEGMENTO_C | SEGMENTO_D | SEGMENTO_F | SEGMENTO_G,                           //!< 5
+    SEGMENTO_A | SEGMENTO_C | SEGMENTO_D | SEGMENTO_E | SEGMENTO_F | SEGMENTO_G,              //!< 6
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_C,                                                     //!< 7
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_C | SEGMENTO_D | SEGMENTO_E | SEGMENTO_F | SEGMENTO_G, //!< 8
+    SEGMENTO_A | SEGMENTO_B | SEGMENTO_C | SEGMENTO_F | SEGMENTO_G,                           //!< 9
+};
+
 /* === Private function declarations =========================================================== */
+
+static display_t DisplayAllocate(void);
 
 /* === Public variable definitions ============================================================= */
 
@@ -43,20 +74,51 @@ SPDX-License-Identifier: MIT
 
 /* === Private function implementation ========================================================= */
 
+static display_t DisplayAllocate(void)
+{
+    static struct display_s instances[1] = {0};
+
+    return &instances[0];
+}
+
 /* === Public function implementation ========================================================== */
 
 display_t DisplayCreate(uint8_t digits, display_driver_t driver)
 {
-    return 0;
+    display_t display = DisplayAllocate();
+
+    if (display)
+    {
+        display->digits = digits;
+        display->active_digit = digits - 1;
+        CopiarDrivers();
+        BorrarMemoria();
+        display->driver->ScreenTurnOff();
+    }
+
+    return display;
 }
 
 void DisplayWriteBCD(display_t display, uint8_t * number, uint8_t size)
 {
+    BorrarMemoria();
+    for (int index = 0; index < size; index++)
+    {
+        if (index >= display->digits)
+            break;
+        display->memory[index] = IMAGES[number[index]];
+    }
+
     return;
 }
 
 void DisplayRefresh(display_t display)
 {
+    display->driver->ScreenTurnOff();                                        // Borra pantalla
+    display->active_digit = (display->active_digit + 1) % display->digits;   // Cambia el digito avtivo entre 0 y 4.
+    display->driver->SegmentsTurnOn(display->memory[display->active_digit]); // Enciende segmentos
+    display->driver->DigitTurnOn(display->active_digit);                     // Enciende dígito
+
     return;
 }
 
