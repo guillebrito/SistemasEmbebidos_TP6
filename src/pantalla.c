@@ -19,12 +19,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
-/** \brief Brief description of the file
+/** \brief Declaraciones de la abtracción del hardware de la pantalla
  **
- ** Full file description
- **
- ** \addtogroup name Module denomination
- ** \brief Brief description of the module
+ ** \addtogroup hal HAL
+ ** \brief Hardware Abstraction Layer
  ** @{ */
 
 /* === Headers files inclusions =============================================================== */
@@ -46,6 +44,21 @@ SPDX-License-Identifier: MIT
 /* === Private function implementation ========================================================= */
 
 /* === Public function implementation ========================================================== */
+
+display_t DisplayCreate(uint8_t digits, display_driver_t driver)
+{
+    return 0;
+}
+
+void DisplayWriteBCD(display_t display, uint8_t * number, uint8_t size)
+{
+    return;
+}
+
+void DisplayRefresh(display_t display)
+{
+    return;
+}
 
 /* === End of documentation ==================================================================== */
 

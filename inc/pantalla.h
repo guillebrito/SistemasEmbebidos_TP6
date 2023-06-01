@@ -22,31 +22,87 @@ SPDX-License-Identifier: MIT
 #ifndef PANTALLA_H
 #define PANTALLA_H
 
-/** \brief Brief description of the file
+/** \brief Declaraciones de la abtracción del hardware de la pantalla
  **
- ** Full file description
- **
- ** \addtogroup name Module denomination
- ** \brief Brief description of the module
+ ** \addtogroup hal HAL
+ ** \brief Hardware Abstraction Layer
  ** @{ */
 
 /* === Headers files inclusions ================================================================ */
 
+#include <stdint.h>
+
 /* === Cabecera C++ ============================================================================ */
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 /* === Public macros definitions =============================================================== */
 
-/* === Public data type declarations =========================================================== */
+// Definiciones de bits asociado a cada segmento
+#define SEGMENTO_A (1 << 0)
+#define SEGMENTO_B (1 << 1)
+#define SEGMENTO_C (1 << 2)
+#define SEGMENTO_D (1 << 3)
+#define SEGMENTO_E (1 << 4)
+#define SEGMENTO_F (1 << 5)
+#define SEGMENTO_G (1 << 6)
+#define SEGMENTO_P (1 << 7)
 
-/* === Public variable declarations ============================================================ */
+    /* === Public data type declarations =========================================================== */
 
-/* === Public function declarations ============================================================ */
+    //! Puntero a un descriptor para gestionar la pantalla.
+    typedef struct display_s * display_t;
 
-/* === End of documentation ==================================================================== */
+    //! Función de callback para apagar los segmentos y digitos de la pantalla.
+    typedef void (*display_screen_off_t)(void);
+
+    //! Función de callback para prender los ssegmentos de la pantalla.
+    typedef void (*display_segments_on_t)(uint8_t segments);
+
+    //! Función de callback para prender un digito de la pantalla.
+    typedef void (*display_digit_on_t)(uint8_t digit);
+
+    //! Estructura con las funciones de bajo nivel para el manejo de la pantalla
+    typedef struct display_driver_s
+    {
+        display_screen_off_t ScreenTurnOff;   //!< Función para apagar los segmentos y los digitos.
+        display_segments_on_t SegmentsTurnOn; //!< Función para prender determinados segmentos.
+        display_digit_on_t DigitTurnOn;       //! Función para prender un dígito.
+    } const * const display_driver_t;         //!< Puntero al controlador de la pantalla.
+
+    /* === Public variable declarations ============================================================ */
+
+    /* === Public function declarations ============================================================ */
+
+    /**
+     * @brief Método para crear una pantalla multiplexada de 7 segmentos.
+     *
+     * @param digits Cantidad de dígitos que forman la pantalla.
+     * @param driver Puntero a la estructura con las funciones de bajo nivel.
+     * @return display_t Puntero al descriptor de la pantalla creada.
+     */
+    display_t DisplayCreate(uint8_t digits, display_driver_t driver);
+
+    /**
+     * @brief Función para escribir un número BCD en la pantalla de 7 segmenentos.
+     *
+     * @param display Puntero al descriptor de la pantalla a escribir.
+     * @param number Puntero al primer elemento del número BCD a escribir.
+     * @param size Cantidad de elementos en el vector que contiene al numero BCD.
+     */
+    void DisplayWriteBCD(display_t display, uint8_t * number, uint8_t size);
+
+    /**
+     * @brief Función para refrescar la pantalla.
+     *
+     * @param display Puntero al descriptor de la pantalla a refrescar.
+     */
+    void DisplayRefresh(display_t display);
+
+    /* === End of documentation ==================================================================== */
 
 #ifdef __cplusplus
 }
