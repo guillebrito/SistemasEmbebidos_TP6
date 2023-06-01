@@ -24,8 +24,7 @@ SPDX-License-Identifier: MIT
 
 /** \brief Board hardware support
  *
- ** Este módulo brinda las configuraciones de entradas y salidas de la placa EDU-CIAA-NXP para el
- *práctico número 4
+ ** Este módulo brinda las configuraciones de entradas y salidas de la placa EDU-CIAA-NXP para el práctico número 4
  **
  ** \addtogroup bsp BSP
  ** \brief Hardware abstraction layer
@@ -55,14 +54,14 @@ extern "C"
      */
     typedef struct board_s
     {
-        digital_input_t tec_f1;     //!< Puntero al descriptor de la entrada tec_f1.
-        digital_input_t tec_f2;     //!< Puntero al descriptor de la entrada tec_f2.
-        digital_input_t tec_f3;     //!< Puntero al descriptor de la entrada tec_f3.
-        digital_input_t tec_f4;     //!< Puntero al descriptor de la entrada tec_f4.
-        digital_input_t tec_acep;   //!< Puntero al descriptor de la entrada tec_acep.
-        digital_input_t tec_cancel; //!< Puntero al descriptor de la entrada tec_cancel.
+        digital_input_t ajustar_tiempo; //!< Puntero al descriptor de la entrada tec_f1.
+        digital_input_t ajustar_alarma; //!< Puntero al descriptor de la entrada tec_f2.
+        digital_input_t decrementar;    //!< Puntero al descriptor de la entrada tec_f3.
+        digital_input_t incrementar;    //!< Puntero al descriptor de la entrada tec_f4.
+        digital_input_t aceptar;        //!< Puntero al descriptor de la entrada tec_acep.
+        digital_input_t cancelar;       //!< Puntero al descriptor de la entrada tec_cancel.
 
-        digital_output_t buzz; //!< Puntero al descriptor de la salida led_r.
+        digital_output_t buzzer; //!< Puntero al descriptor de la salida led_r.
     } const * const board_t;
 
     /* === Public variable declarations ============================================================ */
