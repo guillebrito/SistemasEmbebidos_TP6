@@ -33,6 +33,7 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions ================================================================ */
 
 #include "digital.h"
+#include "pantalla.h"
 
 /* === Cabecera C++ ============================================================================ */
 
@@ -62,6 +63,8 @@ extern "C"
         digital_input_t cancelar;       //!< Puntero al descriptor de la entrada tec_cancel.
 
         digital_output_t buzzer; //!< Puntero al descriptor de la salida led_r.
+
+        display_t display; //!< Puntero al descriptor de la pantalla.
     } const * const board_t;
 
     /* === Public variable declarations ============================================================ */
