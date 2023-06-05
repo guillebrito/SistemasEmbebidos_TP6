@@ -43,10 +43,9 @@
 
 /* === Headers files inclusions =============================================================== */
 
-#include "digital.h"
-#include "chip.h"
-#include "bsp.h"
+#include "bspreloj.h"
 #include <stdbool.h>
+#include <stddef.h>
 
 /* === Macros definitions ====================================================================== */
 
@@ -69,10 +68,10 @@ int main(void)
 
     board_t board = BoardCreate();
 
-    /******************/
-
     while (true)
     {
+        if (DigitalInputHasActivated(board->aceptar))
+            ;
     }
 }
 

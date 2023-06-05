@@ -19,8 +19,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
-#ifndef BSP_H
-#define BSP_H
+#ifndef BSPRELOJ_H
+#define BSPRELOJ_H
 
 /** \brief Board hardware support
  *
@@ -88,4 +88,4 @@ extern "C"
 
 /** @} End of module definition for doxygen */
 
-#endif /* BSP_H */
+#endif /* BSPRELOJ_H */
