@@ -133,34 +133,56 @@ digital_input_t DigitalInputCreate(uint8_t gpio, uint8_t bit, bool inverted)
 
 bool DigitalInputGetState(digital_input_t input)
 {
-    return input->inverted ^ Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, input->gpio, input->bit);
+    bool resultado = 0;
+
+    if (input)
+    {
+        resultado = input->inverted ^ Chip_GPIO_ReadPortBit(LPC_GPIO_PORT, input->gpio, input->bit);
+    }
+
+    return resultado;
 }
 
 bool DigitalInputHasChanged(digital_input_t input)
 {
-    bool state = DigitalInputGetState(input); // ==0 porque las
-    bool result = state != input->last_state;
-    input->last_state = state;
+    bool resultado = 0;
 
-    return result;
+    if (input)
+    {
+        bool state = DigitalInputGetState(input); // ==0 porque las
+        resultado = state != input->last_state;
+        input->last_state = state;
+    }
+
+    return resultado;
 }
 
 bool DigitalInputHasActivated(digital_input_t input)
 {
-    bool state = DigitalInputGetState(input);
-    bool result = state && !input->last_state;
-    input->last_state = state;
+    bool resultado = 0;
 
-    return result;
+    if (input)
+    {
+        bool state = DigitalInputGetState(input);
+        resultado = state && !input->last_state;
+        input->last_state = state;
+    }
+
+    return resultado;
 }
 
 bool DigitalInputHasDeactivated(digital_input_t input)
 {
-    bool state = DigitalInputGetState(input);
-    bool result = !state && input->last_state;
-    input->last_state = state;
+    bool resultado = 0;
 
-    return result;
+    if (input)
+    {
+        bool state = DigitalInputGetState(input);
+        resultado = !state && input->last_state;
+        input->last_state = state;
+    }
+
+    return resultado;
 }
 
 /*********Salidas**********/
@@ -183,19 +205,31 @@ digital_output_t DigitalOutputCreate(uint8_t gpio, uint8_t bit, bool inverted)
 
 void DigitalOutputActivate(digital_output_t output)
 {
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->gpio, output->bit, output->inverted ^ true);
+    if (output)
+    {
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->gpio, output->bit, output->inverted ^ true);
+    }
+
     return;
 }
 
 void DigitalOutputDeactivate(digital_output_t output)
 {
-    Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->gpio, output->bit, output->inverted ^ false);
+    if (output)
+    {
+        Chip_GPIO_SetPinState(LPC_GPIO_PORT, output->gpio, output->bit, output->inverted ^ false);
+    }
+
     return;
 }
 
 void DigitalOutputToggle(digital_output_t output)
 {
-    Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, output->gpio, output->bit);
+    if (output)
+    {
+        Chip_GPIO_SetPinToggle(LPC_GPIO_PORT, output->gpio, output->bit);
+    }
+
     return;
 }
 
