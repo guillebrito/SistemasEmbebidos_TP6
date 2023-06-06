@@ -82,7 +82,8 @@ void SegmentsTurnOn(uint8_t segments)
 
 void DigitTurnOn(uint8_t digit)
 {
-    Chip_GPIO_SetValue(LPC_GPIO_PORT, DIGITS_GPIO, (1 << digit) & DIGITS_MASK);
+    // Agrego DIGITOS-1 para mostrar de izquierda a derecha
+    Chip_GPIO_SetValue(LPC_GPIO_PORT, DIGITS_GPIO, (1 << ((DIGITOS - 1) - digit)) & DIGITS_MASK);
 
     return;
 }
@@ -156,22 +157,22 @@ void BuzzerInit(void)
 void KeysInit(void)
 {
     Chip_SCU_PinMuxSet(KEY_F1_PORT, KEY_F1_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F1_FUNC);
-    board.ajustar_tiempo = DigitalInputCreate(KEY_F1_GPIO, KEY_F1_BIT, true);
+    board.ajustar_tiempo = DigitalInputCreate(KEY_F1_GPIO, KEY_F1_BIT, false);
 
     Chip_SCU_PinMuxSet(KEY_F2_PORT, KEY_F2_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F2_FUNC);
-    board.ajustar_alarma = DigitalInputCreate(KEY_F2_GPIO, KEY_F2_BIT, true);
+    board.ajustar_alarma = DigitalInputCreate(KEY_F2_GPIO, KEY_F2_BIT, false);
 
     Chip_SCU_PinMuxSet(KEY_F3_PORT, KEY_F3_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F3_FUNC);
-    board.decrementar = DigitalInputCreate(KEY_F3_GPIO, KEY_F3_BIT, true);
+    board.decrementar = DigitalInputCreate(KEY_F3_GPIO, KEY_F3_BIT, false);
 
     Chip_SCU_PinMuxSet(KEY_F4_PORT, KEY_F4_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_F4_FUNC);
-    board.incrementar = DigitalInputCreate(KEY_F4_GPIO, KEY_F4_BIT, true);
+    board.incrementar = DigitalInputCreate(KEY_F4_GPIO, KEY_F4_BIT, false);
 
     Chip_SCU_PinMuxSet(KEY_ACCEPT_PORT, KEY_ACCEPT_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_ACCEPT_FUNC);
-    board.aceptar = DigitalInputCreate(KEY_ACCEPT_GPIO, KEY_ACCEPT_BIT, true);
+    board.aceptar = DigitalInputCreate(KEY_ACCEPT_GPIO, KEY_ACCEPT_BIT, false);
 
     Chip_SCU_PinMuxSet(KEY_CANCEL_PORT, KEY_CANCEL_PIN, SCU_MODE_INBUFF_EN | SCU_MODE_PULLUP | KEY_CANCEL_FUNC);
-    board.cancelar = DigitalInputCreate(KEY_CANCEL_GPIO, KEY_CANCEL_BIT, true);
+    board.cancelar = DigitalInputCreate(KEY_CANCEL_GPIO, KEY_CANCEL_BIT, false);
 
     return;
 }

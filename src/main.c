@@ -70,8 +70,48 @@ int main(void)
 
     while (true)
     {
+
         if (DigitalInputHasActivated(board->aceptar))
-            ;
+        {
+            DigitalOutputActivate(board->buzzer);
+            DisplayWriteBCD(board->display, (uint8_t[]){1, 2, 3, 4}, 4);
+        }
+
+        if (DigitalInputHasActivated(board->cancelar))
+        {
+            DigitalOutputDeactivate(board->buzzer);
+            DisplayWriteBCD(board->display, NULL, 0);
+        }
+
+        if (DigitalInputHasActivated(board->ajustar_tiempo))
+        {
+            DisplayWriteBCD(board->display, (uint8_t[]){0, 0, 0, 1}, 4);
+        }
+
+        if (DigitalInputHasActivated(board->ajustar_alarma))
+        {
+            DisplayWriteBCD(board->display, (uint8_t[]){0, 0, 1, 0}, 4);
+        }
+
+        if (DigitalInputHasActivated(board->decrementar))
+        {
+            DisplayWriteBCD(board->display, (uint8_t[]){0, 1, 0, 0}, 4);
+        }
+
+        if (DigitalInputHasActivated(board->incrementar))
+        {
+            DisplayWriteBCD(board->display, (uint8_t[]){1, 0, 0, 0}, 4);
+        }
+
+        DisplayRefresh(board->display);
+
+        for (int index = 0; index < 100; index++)
+        {
+            for (int delay = 0; delay < 250; delay++)
+            {
+                __asm("NOP");
+            }
+        }
     }
 }
 
