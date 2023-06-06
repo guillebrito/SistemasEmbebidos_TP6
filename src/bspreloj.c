@@ -19,11 +19,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 SPDX-License-Identifier: MIT
 *************************************************************************************************/
 
-/** \brief Board harware support
+/** \brief Board hardware support
  *
- ** Este módulo brinda las configuraciones de entradas y salidas de la placa EDU-CIAA_NXP para el práctico número 4
+ ** Este módulo brinda las configuraciones de entradas, salidasy pantalla del poncho para la placa EDU-CIAA-NXP
  **
- ** \addtogroup hal HAL
+ ** \addtogroup bsp BSP
  ** \brief Hardware abstraction layer
  ** @{ */
 

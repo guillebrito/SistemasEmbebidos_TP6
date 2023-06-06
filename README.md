@@ -1,8 +1,8 @@
-# Trabajo Práctico Número 4
+# Trabajo Práctico Número 6
 
 -----
 
-Gestión de entradas y salidas digitales de la placa EDU-CIAA-NXP
+Gestión de poncho con display de 7 segmentos 
 
 **Table of Contents**
 

@@ -21,7 +21,7 @@ SPDX-License-Identifier: MIT
 
 /** \brief Declaraciones de la abtracción del hardware de la pantalla
  **
- ** \addtogroup hal HAL
+ ** \addtogroup pantalla PANTALLA
  ** \brief Hardware Abstraction Layer
  ** @{ */
 

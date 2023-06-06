@@ -24,7 +24,7 @@ SPDX-License-Identifier: MIT
 
 /** \brief Declaraciones de la abtracción del hardware de la pantalla
  **
- ** \addtogroup hal HAL
+ ** \addtogroup pantalla PANTALLA
  ** \brief Hardware Abstraction Layer
  ** @{ */
 
@@ -41,14 +41,21 @@ extern "C"
 
 /* === Public macros definitions =============================================================== */
 
-// Definiciones de bits asociado a cada segmento
+//! Definición de bits del segmento A
 #define SEGMENTO_A (1 << 0)
+//! Definición de bits del segmento B
 #define SEGMENTO_B (1 << 1)
+//! Definición de bits del segmento C
 #define SEGMENTO_C (1 << 2)
+//! Definición de bits del segmento D
 #define SEGMENTO_D (1 << 3)
+//! Definición de bits del segmento E
 #define SEGMENTO_E (1 << 4)
+//! Definición de bits del segmento F
 #define SEGMENTO_F (1 << 5)
+//! Definición de bits del segmento G
 #define SEGMENTO_G (1 << 6)
+//! Definición de bits del segmento P
 #define SEGMENTO_P (1 << 7)
 
     /* === Public data type declarations =========================================================== */

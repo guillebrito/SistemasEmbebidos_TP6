@@ -34,11 +34,8 @@
 
 /** \brief Ejemplo del uso de HAL y board support.
  *
- * En este trabajo pŕactico se crea e implementa una HAL y Board Support diseñada para la placa
- *EDU-CIAA_NXP
- *
  ** \addtogroup main MAIN
- ** \brief Ejemplo del uso de entradas y salidas digitales de la placa EDU-CIAA-NXP
+ ** \brief En este trabajo pŕactico se diseña una gestión para el poncho de la placa EDU-CIAA-NXP
  ** @{ */
 
 /* === Headers files inclusions =============================================================== */

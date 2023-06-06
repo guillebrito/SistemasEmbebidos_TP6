@@ -43,23 +43,23 @@ SPDX-License-Identifier: MIT
 #endif
 /* === Private data type declarations ========================================================== */
 
-//! Estructura para almacenar el descriptor de cada entrada digital.
+// Estructura para almacenar el descriptor de cada entrada digital.
 struct digital_input_s
 {
-    uint8_t gpio;        //!< Puerto GPIO de la entrada digital.
-    uint8_t bit;         //!< Terminal del puerto GPIO de la entrada digital.
-    bool inverted : 1;   //!< Bandera que indica si funciona con logica inversa.
-    bool last_state : 1; //!< Bandera con el último estado reportado de la entrada.
-    bool allocated : 1;  //!< Bandera para indicar que el descriptor está en uso.
+    uint8_t gpio;        // Puerto GPIO de la entrada digital.
+    uint8_t bit;         // Terminal del puerto GPIO de la entrada digital.
+    bool inverted : 1;   // Bandera que indica si funciona con logica inversa.
+    bool last_state : 1; // Bandera con el último estado reportado de la entrada.
+    bool allocated : 1;  // Bandera para indicar que el descriptor está en uso.
 };
 
-//! Estructura para almacenar el descriptor de cada salida digital.
+// Estructura para almacenar el descriptor de cada salida digital.
 struct digital_output_s
 {
-    uint8_t gpio;       //!< Puerto GPIO de la salida digital.
-    uint8_t bit;        //!< Terminal del puerto GPIO de la salida digital.
-    bool inverted : 1;  //!< Bandera que indica si funciona con logica inversa.
-    bool allocated : 1; //!< Bandera para indicar que el descriptor está en uso.
+    uint8_t gpio;       // Puerto GPIO de la salida digital.
+    uint8_t bit;        // Terminal del puerto GPIO de la salida digital.
+    bool inverted : 1;  // Bandera que indica si funciona con logica inversa.
+    bool allocated : 1; // Bandera para indicar que el descriptor está en uso.
 };
 
 /* === Private variable declarations =========================================================== */
